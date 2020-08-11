@@ -1,12 +1,6 @@
 from gamelib.game import *
 from time import time as timer
-#def move_right(steps):
-	#self.move(3, self.jump_speed)
 
-#def move_left(steps):
-#	self.move(-3, self.jump_speed)
-
-#def jump():
 
 def key(left=0,right=0,jump=0):
 	return {'left':left,'right':right,'jump':jump}
@@ -140,8 +134,3 @@ class ai():
 # lvl 5: two enemiess, then stairs with a hole, then another enemy
 
 # you can edit levels by editing lvl_edu_x.png files
-
-
-# ==== to do:
-# conditionals about surroundings
-# show keyboard onscreen
