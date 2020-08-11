@@ -81,7 +81,7 @@ class Collidable(pygame.sprite.Sprite):
 
 class Player(Collidable):
 
-    def __init__(self, pos):
+    def __init__(self, pos, input_movement_speed, input_const_jump_speed):
         Collidable.__init__(self, self.groups)
         self.left_images = []
         for i in self.right_images:
@@ -104,6 +104,8 @@ class Player(Collidable):
         self.hit_sound = load_sound("stomp.ogg")
         self.spring_sound = load_sound("jump2.ogg")
         self.springing = False
+        self.movement_speed = input_movement_speed
+        self.const_jump_speed = input_const_jump_speed
 
     def kill(self):
         #pygame.mixer.music.stop()
@@ -139,7 +141,7 @@ class Player(Collidable):
             
     def jump(self):
         if not self.jumping and not self.shooting and self.still_timer <= 0:
-            self.jump_speed = -6.4
+            self.jump_speed = self.const_jump_speed
             self.jumping = True
             self.jump_sound.play()
             self.move(0, -2.5)
@@ -160,7 +162,7 @@ class Player(Collidable):
         key = pygame.key.get_pressed()
 
 
-        if (ai_instruction['jump'] or key[K_z]) and not self.springing:
+        if (ai_instruction['jump'] or key[K_z] or key[K_UP]) and not self.springing:
             self.jump()
             self.jump_accel = 0.3
         else:
@@ -211,7 +213,7 @@ class Player(Collidable):
         if self.rect.top >= 475:
             pygame.sprite.Sprite.kill(self)
                     
-        self.move(2*dx, self.jump_speed)
+        self.move(self.movement_speed*dx, self.jump_speed)
         
 class Platform(Collidable):
     def __init__(self, pos, tile, l, r):

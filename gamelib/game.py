@@ -49,7 +49,7 @@ def get_saved_level():
 
 class Game(object):
 
-    def __init__(self, screen, ai_input, input_level, continuing=False):
+    def __init__(self, screen, ai_input, input_level, movement_speed, const_jump_speed, continuing=False):
 
         self.screen = screen
         self.sprites = pygame.sprite.OrderedUpdates()
@@ -189,7 +189,9 @@ class Game(object):
         self.lvl   = input_level
         if continuing:
             self.lvl = get_saved_level()
-        self.player = Player((0, 0))
+        self.player = Player((0, 0),movement_speed,const_jump_speed)
+        self.movement_speed = movement_speed
+        self.const_jump_speed = const_jump_speed
         self.clock = pygame.time.Clock()
         self.bg = load_image("background-2.png")
         self.level = Level(self.lvl)
@@ -253,7 +255,7 @@ class Game(object):
         if self.running:
             self.clear_sprites()
             self.level = Level(self.lvl)
-            self.player = Player((0, 0))
+            self.player = Player((0, 0),self.movement_speed,self.const_jump_speed)
             self.camera = Camera(self.player, self.level.get_size()[0])
             self.score -= self.score
             self.highscore = self.highscore

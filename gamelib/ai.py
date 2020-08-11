@@ -17,8 +17,16 @@ class ai():
 			self.game.main_loop(key())
 
 	def ai_game_manager(self, screen, level):
-		#self.game = menu.Menu(screen)
-		self.game = Game(screen,self,level)
+		# slow settings
+		slow_movement_speed = 2
+		slow_const_jump_speed = -6.4
+
+		# fast settings
+		fast_movement_speed = 3
+		fast_const_jump_speed = -9
+
+		self.game = Game(screen,self,level,movement_speed=fast_movement_speed,const_jump_speed=fast_const_jump_speed)
+
 		self.level = level
 
 	def move_right(self,seconds = 1):
@@ -109,7 +117,7 @@ class ai():
 
 		# ============================================
 		# =============== AI goes here ===============
-		
+		self.move_and_jump_5_times()
 
 		print("AI ends")
 		# ============================================
